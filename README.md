@@ -13,6 +13,10 @@ runs on a laptop CPU (or Apple MPS) in a couple of minutes. A pluggable backend
 then swaps the abstract world for [ManiSkill](https://maniskill.readthedocs.io)
 robot scenes without changing the decision layer.
 
+**📄 Project report:** [`docs/report.html`](docs/report.html) — the full write-up
+(problem, method, results, discussion), built from the result tables in
+[`docs/`](docs/). Open it in a browser, or view the shared version online.
+
 ---
 
 ## Research questions
