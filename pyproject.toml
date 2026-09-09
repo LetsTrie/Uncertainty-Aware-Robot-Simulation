@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uarsim"
+version = "0.1.0"
+description = "Uncertainty-aware selective autonomy for robot manipulation — learning when to act, ask, or defer."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "torch>=2.1",
+    "matplotlib>=3.7",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# GPU only — the ManiSkill scene backend. Needs Python 3.9-3.12 (no 3.13 wheels).
+maniskill = ["mani_skill==3.0.1", "gymnasium>=0.29", "tyro"]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["uarsim*"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules -q"
+testpaths = ["tests", "uarsim/types.py"]

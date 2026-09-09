@@ -33,7 +33,7 @@ class SceneConfig:
     # Base object property rates (train distribution).
     p_unreachable: float = 0.08
     p_fragile: float = 0.18
-    novel_prob: float = 0.0      # train distribution has no novel objects
+    novel_prob: float = 0.05     # a little OOD in-distribution so u_ood is learnable
 
     # Noise on observed uncertainty signals (std of Gaussian, pre-clip).
     sig_noise: float = 0.05

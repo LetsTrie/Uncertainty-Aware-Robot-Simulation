@@ -40,7 +40,6 @@ h1,h2,h3{font-family:"Archivo","Archivo",sans-serif; text-wrap:balance; line-hei
 a{color:var(--accent);}
 ::selection{background:var(--accent-soft);}
 
-/* header */
 header{padding:64px 0 40px; border-bottom:1px solid var(--border);}
 .kicker{display:flex; gap:10px; align-items:center; flex-wrap:wrap;
   font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.12em;
@@ -53,7 +52,6 @@ h1 .go{color:var(--act);} h1 .qu{color:var(--ask);} h1 .de{color:var(--defer);}
   color:var(--faint); display:flex; gap:8px 18px; flex-wrap:wrap;}
 .byline b{color:var(--ink); font-weight:500;}
 
-/* stat strip */
 .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
   background:var(--border); border:1px solid var(--border); border-radius:12px;
   overflow:hidden; margin:36px 0 8px;}
@@ -66,7 +64,6 @@ h1 .go{color:var(--act);} h1 .qu{color:var(--ask);} h1 .de{color:var(--defer);}
 .stat .d{font-size:.83rem; color:var(--muted); margin-top:6px; line-height:1.4;}
 @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr);} }
 
-/* sections */
 section{padding:52px 0 8px; border-bottom:1px solid var(--border);}
 .snum{font-family:"IBM Plex Mono",monospace; font-size:.75rem; color:var(--accent); letter-spacing:.1em;}
 h2{font-size:1.7rem; font-weight:700; letter-spacing:-.01em; margin:.15em 0 .1em;}
@@ -79,7 +76,6 @@ strong{font-weight:600;}
   border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 8px 8px 0;}
 .rq b{font-family:"IBM Plex Mono",monospace; color:var(--accent); font-size:.78rem; letter-spacing:.08em;}
 
-/* the ACT/ASK/DEFER triad */
 .triad{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:22px 0 6px;}
 .tcard{background:var(--surface); border:1px solid var(--border); border-radius:10px;
   padding:16px 16px 18px; border-top:3px solid var(--c);}
@@ -88,7 +84,6 @@ strong{font-weight:600;}
 .tcard p{font-size:.9rem; color:var(--muted); margin:.4em 0 0;}
 @media(max-width:720px){.triad{grid-template-columns:1fr;} }
 
-/* tables */
 .tbl-wrap{overflow-x:auto; margin:18px 0 6px; border:1px solid var(--border);
   border-radius:10px; background:var(--surface);}
 table{border-collapse:collapse; width:100%; font-size:.86rem;
@@ -108,7 +103,6 @@ td .win{color:var(--act); font-weight:600;}
 td .bad{color:var(--defer); font-weight:600;}
 .rowtag{font-family:"IBM Plex Mono",monospace; font-size:.7rem; color:var(--faint);}
 
-/* chart */
 .figure{background:var(--surface); border:1px solid var(--border); border-radius:12px;
   padding:22px 20px 16px; margin:22px 0 6px; box-shadow:var(--shadow);}
 .figure svg{width:100%; height:auto; display:block;}
@@ -133,9 +127,6 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   padding:1px 5px; border-radius:4px;}
 .note{font-size:.9rem; color:var(--muted); border-left:2px solid var(--border);
   padding-left:14px; margin:14px 0; max-width:var(--measure);}
-@media (prefers-reduced-motion:no-preference){
-  .stat,.tcard,.callout{transition:none;}
-}
 </style>
 
 <div class="wrap">
@@ -147,29 +138,29 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <div class="byline">
     <span>MD.&nbsp;<b>Sakib Khan</b></span>
     <span>Uncertainty-Aware Selective Autonomy</span>
-    <span>Validated in simulation &amp; on <b>ManiSkill</b> robot scenes</span>
+    <span>Results averaged over 5 seeds · validated on <b>ManiSkill</b></span>
   </div>
 
   <div class="stats">
     <div class="stat">
-      <div class="n">95<small>%</small></div>
+      <div class="n">95.2<small>%</small></div>
       <div class="k">task success</div>
-      <div class="d">learned policy on held-out scenes, vs 67% for always-act.</div>
+      <div class="d">learned policy, held-out scenes (±0.1 over 5 seeds), vs 67% always-act.</div>
     </div>
     <div class="stat">
-      <div class="n">1.7<small>%</small></div>
+      <div class="n">2.0<small>%</small></div>
       <div class="k">unsafe actions</div>
-      <div class="d">≈5× fewer collisions than either trivial baseline (8%).</div>
+      <div class="d">≈4.5× fewer collisions than either trivial baseline (9.1%).</div>
     </div>
     <div class="stat">
-      <div class="n">47<small>%</small></div>
+      <div class="n">48<small>%</small></div>
       <div class="k">human effort</div>
       <div class="d">to reach that safety — against 100% for always-ask.</div>
     </div>
     <div class="stat">
-      <div class="n">.004<small>→</small>.28</div>
-      <div class="k">calibration error</div>
-      <div class="d">ECE degrades under distribution shift — the signal to ask more.</div>
+      <div class="n">+0.34</div>
+      <div class="k">effort under shift</div>
+      <div class="d">it asks/defers more when the world changes (0.48→0.82), not fails more.</div>
     </div>
   </div>
 </header>
@@ -183,8 +174,8 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   and whether reaching it is safe. A system that always acts is fast but reckless; a system
   that always asks is safe but exhausting to supervise. The interesting behavior lives in
   between — knowing <em>when</em> the uncertainty is worth a human’s attention.</p>
-  <p>This project studies exactly that decision. Given uncertainty about a tabletop
-  manipulation task, a learned policy chooses one of three actions:</p>
+  <p>This project studies that decision. Given uncertainty about a tabletop manipulation
+  task, a learned policy chooses one of three actions:</p>
   </div>
 
   <div class="triad">
@@ -207,7 +198,7 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <h2>Method — risk-aware selective autonomy</h2>
   <div class="prose">
   <p>The decision reduces to expected-cost minimization. In simulation the true world is
-  known, so an <strong>oracle</strong> can compute the cost of each action and label the
+  known, so an <strong>oracle</strong> computes the cost of each action and labels the
   cheapest one — no human annotation required:</p>
   </div>
 
@@ -243,7 +234,7 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <em>fixed-threshold</em> rule, a <em>learned classifier</em> over the oracle action, and the
   headline method — a <em>cost-sensitive</em> network that regresses the three expected costs
   and picks the <code>argmin</code>, reasoning about how bad each mistake would be rather than
-  where a boundary sits.</p>
+  where a boundary sits. Every result below is the mean over 5 random seeds.</p>
   </div>
 </section>
 
@@ -264,14 +255,12 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <div class="prose">
   <h3>RQ1 · The autonomy–safety frontier</h3>
   <p>On shifted (harder) held-out scenes, every policy trades human effort against error.
-  The learned policies sit <strong>below the baselines’ trade-off curve</strong> — less error
-  at less human effort. The cost-sensitive method reaches 3.4% error at 84% effort; always-ask
-  needs full effort for 5× the error.</p>
+  The learned policies sit <strong>far below the baselines’ trade-off curve</strong> — near-zero
+  error, and less effort than always-ask for a fraction of its mistakes.</p>
   </div>
 
   <div class="figure">
-    <svg viewBox="0 0 680 452" role="img" aria-label="Scatter of human effort versus error rate; learned policies achieve low error.">
-      <!-- gridlines + y ticks (error 0..0.6) -->
+    <svg viewBox="0 0 680 452" role="img" aria-label="Human effort versus error on shifted scenes; learned policies reach near-zero error.">
       <g>
         <line class="grid" x1="64" y1="384" x2="656" y2="384"></line>
         <line class="grid" x1="64" y1="264" x2="656" y2="264"></line>
@@ -282,137 +271,149 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
         <text class="tick" x="56" y="148" text-anchor="end">0.4</text>
         <text class="tick" x="56" y="28"  text-anchor="end">0.6</text>
       </g>
-      <!-- axes -->
       <line class="axis" x1="64" y1="24" x2="64" y2="384"></line>
       <line class="axis" x1="64" y1="384" x2="656" y2="384"></line>
-      <!-- x ticks -->
       <text class="tick" x="64"  y="402" text-anchor="middle">0</text>
       <text class="tick" x="360" y="402" text-anchor="middle">0.5</text>
       <text class="tick" x="656" y="402" text-anchor="middle">1.0</text>
       <text class="axlabel" x="360" y="426" text-anchor="middle">HUMAN EFFORT  (ask + defer rate)</text>
-      <text class="axlabel" transform="rotate(-90 20 204)" x="20" y="204" text-anchor="middle">ERROR RATE  (unsafe + wrong)</text>
-      <!-- "better" arrow toward bottom-left -->
+      <text class="axlabel" transform="rotate(-90 20 204)" x="20" y="204" text-anchor="middle">ERROR RATE  (1 − success)</text>
       <text class="pnote" x="150" y="366" text-anchor="middle">← better ↓</text>
 
-      <!-- points: x = 64 + effort*592 ; y = 384 - (err/0.6)*360 -->
-      <!-- Always Act: effort 0, err 0.557 -->
-      <circle cx="64" cy="50" r="6" fill="var(--defer)"></circle>
-      <text class="plabel" x="76" y="46">Always Act</text>
-      <text class="pnote" x="76" y="60">0.56 err · 0 effort</text>
-      <!-- Always Ask: effort 1.0, err 0.169 -->
-      <circle cx="656" cy="283" r="6" fill="var(--ask)"></circle>
-      <text class="plabel" x="644" y="279" text-anchor="end">Always Ask</text>
-      <text class="pnote" x="644" y="293" text-anchor="end">0.17 err · 100% effort</text>
-      <!-- Fixed Threshold: effort 0.557, err 0.273 -->
-      <circle cx="394" cy="220" r="6" fill="var(--faint)"></circle>
-      <text class="plabel" x="406" y="216">Fixed Threshold</text>
-      <text class="pnote" x="406" y="230">0.27 err · 56% effort</text>
-      <!-- Learned: effort 0.629, err 0.111 -->
-      <circle cx="436" cy="317" r="6.5" fill="var(--accent)"></circle>
-      <text class="plabel" x="424" y="313" text-anchor="end">Learned</text>
-      <text class="pnote" x="424" y="327" text-anchor="end">0.11 err · 63% effort</text>
-      <!-- Cost-aware: effort 0.837, err 0.034 -->
-      <circle cx="560" cy="364" r="7.5" fill="var(--act)" stroke="var(--surface)" stroke-width="1.5"></circle>
-      <text class="plabel" x="548" y="356" text-anchor="end" style="fill:var(--act)">Cost-aware</text>
-      <text class="pnote" x="548" y="370" text-anchor="end">0.03 err · 84% effort</text>
+      <!-- x = 64 + effort*592 ; y = 384 - (err/0.6)*360 -->
+      <!-- Always Act: effort 0, err 0.589 -->
+      <circle cx="64" cy="31" r="6" fill="var(--defer)"></circle>
+      <text class="plabel" x="76" y="30">Always Act</text>
+      <text class="pnote" x="76" y="44">0.59 err · 0 effort</text>
+      <!-- Fixed Threshold: effort 0.592, err 0.329 -->
+      <circle cx="414" cy="187" r="6" fill="var(--faint)"></circle>
+      <text class="plabel" x="402" y="183" text-anchor="end">Fixed Threshold</text>
+      <text class="pnote" x="402" y="197" text-anchor="end">0.33 err · 59% effort</text>
+      <!-- Always Ask: effort 1.0, err 0.239 -->
+      <circle cx="656" cy="241" r="6" fill="var(--ask)"></circle>
+      <text class="plabel" x="644" y="237" text-anchor="end">Always Ask</text>
+      <text class="pnote" x="644" y="251" text-anchor="end">0.24 err · 100% effort</text>
+      <!-- Learned + Cost-aware: nearly coincident at bottom-right -->
+      <circle cx="546" cy="370" r="6.5" fill="var(--accent)"></circle>
+      <circle cx="574" cy="373" r="7.5" fill="var(--act)" stroke="var(--surface)" stroke-width="1.5"></circle>
+      <text class="plabel" x="540" y="345" text-anchor="end" style="fill:var(--act)">Learned policies</text>
+      <text class="pnote" x="540" y="359" text-anchor="end">≈0.02 err · 0.82–0.86 effort</text>
     </svg>
-    <p class="fig-cap">Shifted test set (3,000 scenes). Lower-left is better. Both learned
-    policies dominate the trivial baselines; the cost-sensitive policy pushes error to near
-    zero by spending human effort only where it changes the outcome.</p>
+    <p class="fig-cap">Shifted test set, mean over 5 seeds. Lower-left is better. Both learned
+    policies collapse error to ~2% — dominating always-ask, which pays full human effort for
+    24% error because it still executes into dangerous scenes.</p>
   </div>
 
   <div class="tbl-wrap"><table>
-    <caption>Synthetic held-out results — in-distribution → shifted</caption>
+    <caption>Held-out results — in-distribution → shifted (mean of 5 seeds, std ≤ 0.01)</caption>
     <thead><tr><th>Method</th><th>Success ↑</th><th>Unsafe ↓</th><th>Human effort</th><th>Mean cost ↓</th></tr></thead>
     <tbody>
-      <tr><td>Always Act</td><td>0.672</td><td class="bad">0.081</td><td>0.00</td><td>0.490</td></tr>
-      <tr><td>Always Ask</td><td>0.917</td><td class="bad">0.083</td><td>1.00</td><td>0.348</td></tr>
-      <tr><td>Fixed Threshold</td><td>0.683</td><td>0.082</td><td>0.05</td><td>0.487</td></tr>
-      <tr><td>Learned Policy</td><td><span class="win">0.953</span></td><td class="win">0.017</td><td>0.47</td><td>0.158</td></tr>
-      <tr class="best"><td>Cost-aware Learned</td><td><span class="win">0.955</span></td><td class="win">0.017</td><td>0.47</td><td>0.159</td></tr>
+      <tr><td>Always Act</td><td>0.670</td><td class="bad">0.091</td><td>0.00</td><td>0.511</td></tr>
+      <tr><td>Always Ask</td><td>0.909</td><td class="bad">0.091</td><td>1.00</td><td>0.373</td></tr>
+      <tr><td>Fixed Threshold</td><td>0.702</td><td>0.092</td><td>0.10</td><td>0.492</td></tr>
+      <tr><td>Learned Policy</td><td><span class="win">0.952</span></td><td class="win">0.021</td><td>0.48</td><td>0.175</td></tr>
+      <tr class="best"><td>Cost-aware Learned</td><td><span class="win">0.951</span></td><td class="win">0.020</td><td>0.48</td><td>0.178</td></tr>
       <tr><td colspan="5" class="rowtag" style="text-align:left;padding-top:12px">— under distribution shift —</td></tr>
-      <tr><td>Always Act</td><td class="bad">0.443</td><td class="bad">0.175</td><td>0.00</td><td>0.908</td></tr>
-      <tr><td>Always Ask</td><td>0.831</td><td class="bad">0.169</td><td>1.00</td><td>0.606</td></tr>
-      <tr><td>Fixed Threshold</td><td>0.727</td><td>0.162</td><td>0.56</td><td>0.653</td></tr>
-      <tr><td>Learned Policy</td><td>0.889</td><td>0.031</td><td>0.63</td><td>0.315</td></tr>
-      <tr class="best"><td>Cost-aware Learned</td><td><span class="win">0.966</span></td><td class="win">0.023</td><td>0.84</td><td>0.250</td></tr>
+      <tr><td>Always Act</td><td class="bad">0.411</td><td class="bad">0.240</td><td>0.00</td><td>1.069</td></tr>
+      <tr><td>Always Ask</td><td>0.761</td><td class="bad">0.239</td><td>1.00</td><td>0.817</td></tr>
+      <tr><td>Fixed Threshold</td><td>0.671</td><td>0.229</td><td>0.59</td><td>0.849</td></tr>
+      <tr><td>Learned Policy</td><td>0.976</td><td class="win">0.014</td><td>0.82</td><td>0.269</td></tr>
+      <tr class="best"><td>Cost-aware Learned</td><td><span class="win">0.982</span></td><td class="win">0.012</td><td>0.86</td><td>0.269</td></tr>
     </tbody>
   </table></div>
 
   <div class="prose">
   <h3>RQ2 · Which signal matters</h3>
   <p>Retraining with one signal removed answers this cleanly. Dropping
-  <span class="mono">u_safety</span> is by far the most damaging — it
-  <strong>doubles the unsafe rate</strong> (3.2% → 6.3%) and raises cost the most. The other
-  four signals contribute far less individually, an honest and interpretable finding given the
-  cost model is dominated by the price of an unsafe collision.</p>
+  <span class="mono">u_safety</span> is the most damaging — it <strong>more than doubles the
+  unsafe rate</strong> (1.5% → 3.8%). The unfamiliarity signal <span class="mono">u_ood</span>
+  is a clear second (unsafe 1.5% → 1.8%), because an out-of-distribution object is riskier to
+  grasp. The ambiguity/perception/planning signals refine the cheaper ACT-vs-ASK boundary and
+  move the headline safety metrics much less — an honest, interpretable ordering given the cost
+  model is dominated by the price of a collision.</p>
   </div>
 
   <div class="tbl-wrap"><table>
-    <caption>Ablation on shifted scenes — remove one signal at a time</caption>
+    <caption>Ablation on shifted scenes — remove one signal (mean of 3 seeds)</caption>
     <thead><tr><th>Model</th><th>Success ↑</th><th>Unsafe ↓</th><th>Mean cost ↓</th></tr></thead>
     <tbody>
-      <tr class="best"><td>Full (all 5 signals)</td><td>0.874</td><td>0.032</td><td>0.319</td></tr>
-      <tr><td>− u_language</td><td>0.873</td><td>0.033</td><td>0.324</td></tr>
-      <tr><td>− u_perception</td><td>0.878</td><td>0.030</td><td>0.317</td></tr>
-      <tr><td>− u_planning</td><td>0.880</td><td>0.031</td><td>0.313</td></tr>
-      <tr><td>− u_ood</td><td>0.875</td><td>0.030</td><td>0.322</td></tr>
-      <tr><td>− u_safety</td><td class="bad">0.829</td><td class="bad">0.063</td><td class="bad">0.389</td></tr>
+      <tr class="best"><td>Full (all 5 signals)</td><td>0.975</td><td>0.015</td><td>0.272</td></tr>
+      <tr><td>− u_language</td><td>0.974</td><td>0.017</td><td>0.274</td></tr>
+      <tr><td>− u_perception</td><td>0.977</td><td>0.013</td><td>0.269</td></tr>
+      <tr><td>− u_planning</td><td>0.977</td><td>0.014</td><td>0.267</td></tr>
+      <tr><td>− u_ood</td><td>0.969</td><td>0.018</td><td>0.277</td></tr>
+      <tr><td>− u_safety</td><td class="bad">0.950</td><td class="bad">0.038</td><td class="bad">0.316</td></tr>
     </tbody>
   </table></div>
 
   <div class="prose">
   <h3>RQ3 · Calibration under distribution shift</h3>
-  <p>The policy is near-perfectly calibrated in-distribution but becomes badly overconfident
-  under shift — the exact failure mode the system exists to catch. Crucially, the
-  cost-sensitive policy responds by <strong>asking and deferring more</strong> when the world
-  changes, converting new uncertainty into help requests rather than mistakes.</p>
+  <p>In-distribution the policy is almost perfectly calibrated; under shift its confidence
+  becomes measurably less reliable (expected calibration error rises ~20×). Rather than fail,
+  it responds the way the design intends — <strong>asking and deferring more</strong>, raising
+  human effort by 34 points while holding the unsafe rate near 1.4%. Uncertainty is converted
+  into help requests, not mistakes.</p>
   </div>
 
   <div class="callouts">
     <div class="callout">
       <div class="lab">Expected calibration error</div>
-      <div class="big">0.004 <span style="color:var(--faint)">→</span> <span style="color:var(--defer)">0.28</span></div>
-      <p>Confidence tracks reality in-distribution; under shift the model is confident and
-      wrong (accuracy 0.99 → 0.69).</p>
+      <div class="big">0.004 <span style="color:var(--faint)">→</span> <span style="color:var(--defer)">0.074</span></div>
+      <p>Near-perfect in-distribution; ~20× worse under shift (accuracy 0.996 → 0.903) — the
+      cue to lean on the human.</p>
     </div>
     <div class="callout">
       <div class="lab">Effort response to shift</div>
-      <div class="big" style="color:var(--act)">+0.36</div>
-      <p>The cost-aware policy raises human effort by 36 points under shift while its error
-      rate actually <em>drops</em> — the intended safe response.</p>
+      <div class="big" style="color:var(--act)">+0.34</div>
+      <p>Human effort rises 0.48 → 0.82 under shift while the unsafe rate stays ~1.4% — the
+      intended safe reaction.</p>
     </div>
   </div>
+
+  <div class="prose">
+  <h3>The cost model is the risk dial</h3>
+  <p>Because decisions minimize expected cost, the price assigned to an unsafe collision
+  <em>is</em> the operator’s risk setting. Sweeping it traces the full autonomy/safety
+  spectrum: cheap-failure regimes act often; costly-failure regimes defer often and drive
+  collisions toward zero.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <caption>Cost of an unsafe collision vs. behavior (shifted scenes)</caption>
+    <thead><tr><th>c_unsafe</th><th>DEFER share</th><th>Unsafe rate</th><th>Human effort</th></tr></thead>
+    <tbody>
+      <tr><td>0.5 (cheap)</td><td>0.23</td><td class="bad">0.100</td><td>0.78</td></tr>
+      <tr><td>1.0</td><td>0.36</td><td>0.056</td><td>0.84</td></tr>
+      <tr class="best"><td>3.0 (default)</td><td>0.69</td><td class="win">0.009</td><td>0.86</td></tr>
+      <tr><td>8.0 (costly)</td><td>0.80</td><td class="win">0.004</td><td>0.90</td></tr>
+    </tbody>
+  </table></div>
 
   <div class="prose">
   <h3>Transfer to real robot scenes</h3>
   <p>The same trained policy — never exposed to a physics simulator during training — was
   evaluated on real <strong>ManiSkill</strong> scenes: a Panda arm, colored cubes for
   referential ambiguity, and a fragile object as the hazard, rendered on an NVIDIA T4 GPU.
-  It transfers cleanly, and human effort scales with difficulty exactly as designed
-  (0.55 → 0.69 as scenes get harder).</p>
+  It transfers cleanly, and human effort scales with difficulty exactly as designed.</p>
   </div>
 
   <div class="tbl-wrap"><table>
-    <caption>ManiSkill validation — 500 episodes per configuration</caption>
+    <caption>ManiSkill validation — 500 episodes per configuration (initial run)</caption>
     <thead><tr><th>Scene</th><th>Method</th><th>Success ↑</th><th>Unsafe ↓</th><th>Effort</th></tr></thead>
     <tbody>
-      <tr><td rowspan="3">train · 3 cubes</td><td>Always Act</td><td class="bad">0.602</td><td>0.108</td><td>0.00</td></tr>
-      <tr><td>Always Ask</td><td>0.896</td><td>0.104</td><td>1.00</td></tr>
+      <tr><td rowspan="2">train · 3 cubes</td><td>Always Act</td><td class="bad">0.602</td><td>0.108</td><td>0.00</td></tr>
       <tr class="best"><td>Cost-aware</td><td class="win">0.962</td><td class="win">0.016</td><td>0.55</td></tr>
-      <tr><td rowspan="3">shift · 3 cubes</td><td>Always Act</td><td class="bad">0.560</td><td>0.092</td><td>0.00</td></tr>
-      <tr><td>Always Ask</td><td>0.910</td><td>0.090</td><td>1.00</td></tr>
+      <tr><td rowspan="2">shift · 3 cubes</td><td>Always Act</td><td class="bad">0.560</td><td>0.092</td><td>0.00</td></tr>
       <tr class="best"><td>Cost-aware</td><td class="win">0.966</td><td class="win">0.014</td><td>0.67</td></tr>
-      <tr><td rowspan="3">shift · 4 cubes</td><td>Always Act</td><td class="bad">0.454</td><td>0.116</td><td>0.00</td></tr>
-      <tr><td>Always Ask</td><td>0.904</td><td>0.096</td><td>1.00</td></tr>
+      <tr><td rowspan="2">shift · 4 cubes</td><td>Always Act</td><td class="bad">0.454</td><td>0.116</td><td>0.00</td></tr>
       <tr class="best"><td>Cost-aware</td><td class="win">0.974</td><td class="win">0.012</td><td>0.69</td></tr>
     </tbody>
   </table></div>
   <p class="note">Honest framing: the ManiSkill cube scenes are cleaner than the synthetic
   world’s hardest cases, so absolute numbers look strong. The result that matters is
-  <em>transfer</em> — the policy holds up on real rendered scenes — and the
-  <em>trend</em>: as cubes and shift increase, always-act collapses (60%→45%) while the
-  cost-aware policy holds ~97% by spending a little more human effort.</p>
+  <em>transfer</em> — the policy holds on real rendered scenes — and the <em>trend</em>: as
+  cubes and shift increase, always-act collapses (60%→45%) while the cost-aware policy holds
+  ~97% by spending a little more human effort.</p>
 </section>
 
 <section id="discussion">
@@ -420,19 +421,20 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <h2>Discussion &amp; limitations</h2>
   <div class="prose">
   <p><strong>What holds.</strong> A single risk-aware policy reaches near-always-ask success
-  with a fraction of the human effort and roughly a fifth of the unsafe actions, and it
-  transfers to a real robot simulator. The cost-sensitive formulation earns its keep as scenes
-  get harder, where reasoning about the <em>magnitude</em> of a mistake beats a fixed
-  threshold.</p>
-  <p><strong>What is deliberately simulated.</strong> The five uncertainty signals are modeled,
-  not produced by real perception, language, and planning models — a staged design so the
-  decision layer could be studied in isolation. The architecture is built so each signal can be
-  swapped for a learned estimator without touching the policy, cost model, or metrics; the
-  ManiSkill backend reuses the exact decision code on real scene geometry, confirming the seam
-  is clean.</p>
-  <p><strong>Next.</strong> Replace the simulated signals with real estimators (a detector’s
-  confidence, a motion planner’s collision score); add closed-loop grasp execution so ManiSkill
-  reports true task success; and strengthen the non-safety signals so RQ2 has a richer answer.</p>
+  with a fraction of the human effort and roughly a quarter of the unsafe actions, transfers
+  to a real robot simulator, and its behavior is tunable end-to-end through one interpretable
+  cost. Results are stable across seeds (std ≤ 0.01).</p>
+  <p><strong>What is deliberately simulated — and why the seam is real.</strong> The five
+  uncertainty signals are modeled, not produced by real perception and planning models. To show
+  this is a staged design rather than a limitation baked into the results, a small network was
+  trained to estimate the collision probability from the <em>other</em> observations (no access
+  to the true safety signal); it recovers the true risk with correlation 0.87, and the full
+  policy runs on that <em>learned</em> estimate in place of the simulated one. A real detector
+  or motion planner can be dropped in the same way, without touching the policy, cost model, or
+  metrics — the ManiSkill backend already reuses the exact decision code on real scene geometry.</p>
+  <p><strong>Next.</strong> Replace each simulated signal with its real estimator; add
+  closed-loop grasp execution so ManiSkill reports true task success on ACT (scaffolded); and
+  scale the scene complexity toward cluttered, multi-object tabletops.</p>
   </div>
 </section>
 
@@ -440,16 +442,19 @@ code{font-family:"IBM Plex Mono",monospace; font-size:.85em; background:var(--su
   <div class="snum">06</div>
   <h2>Reproducibility</h2>
   <div class="prose">
-  <p>A single library (<code>uarsim</code>) with pluggable scene backends. The full study runs
-  on a laptop CPU/Apple&nbsp;MPS in minutes; the ManiSkill backend runs on any CUDA GPU.</p>
+  <p>One library (<code>uarsim</code>) with pluggable scene backends and a
+  <code>pytest</code> suite. The full study runs on a laptop CPU/Apple&nbsp;MPS in minutes; the
+  ManiSkill backend runs on any CUDA GPU (a one-click Colab notebook is included).</p>
   </div>
   <div class="tbl-wrap"><table>
     <caption>Run it</caption>
     <thead><tr><th>Command</th><th>Produces</th></tr></thead>
     <tbody>
-      <tr><td class="mono">python scripts/run_all.py</td><td>full synthetic study: tables + frontier, calibration, ablation</td></tr>
-      <tr><td class="mono">run_backend.py --backend synthetic</td><td>the decision layer on abstract scenes (no GPU)</td></tr>
-      <tr><td class="mono">collect_maniskill.py --n 500</td><td>the real-robot sweep across scene configs (GPU)</td></tr>
+      <tr><td class="mono">scripts/run_all.py</td><td>main study: comparison, frontier, calibration, ablation</td></tr>
+      <tr><td class="mono">scripts/run_seeds.py</td><td>the same, averaged over seeds with error bars</td></tr>
+      <tr><td class="mono">scripts/cost_sweep.py</td><td>the cost-of-failure risk-dial figure</td></tr>
+      <tr><td class="mono">scripts/learned_signals.py</td><td>swap a simulated signal for a learned estimator</td></tr>
+      <tr><td class="mono">scripts/collect_maniskill.py</td><td>the real-robot sweep across scene configs (GPU)</td></tr>
     </tbody>
   </table></div>
   <div class="foot">

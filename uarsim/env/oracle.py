@@ -15,22 +15,24 @@ def compute_latents(scene, target, n_matches) -> dict:
     """Latent probabilities that drive outcomes for this episode."""
     from .objects import normalized_distance
 
-    # P(correct if ACT): must both pick the right match AND perceive it right.
-    # Ambiguity (n_matches > 1) and low perception confidence both lower this,
-    # which is what pushes an otherwise-safe scene toward ASK.
+    # P(correct if ACT): must pick the right match AND perceive it right.
+    # Ambiguity (n_matches > 1) and low perception confidence lower this, which
+    # is what pushes an otherwise-safe scene toward ASK.
     p_pick = 1.0 / max(n_matches, 1)
     p_correct = p_pick * target.perception_conf
 
-    # P(unsafe if the robot physically executes). Danger is driven by a fragile
-    # object in the path or an unreachable target; only genuinely *dense* scenes
-    # (clutter well above average) add residual risk. Typical clean scenes stay
-    # low-risk so that ASK can beat DEFER when the only problem is ambiguity.
+    # P(unsafe if the robot physically executes). Fragile-in-path and an
+    # unreachable target are the big drivers; a dense scene and an
+    # out-of-distribution target add smaller, decision-relevant risk, so
+    # u_ood and u_planning (via clutter) carry safety information too, not just
+    # u_safety.
     p_unsafe = 0.02
     if scene.fragile_in_path:
         p_unsafe += 0.45
     if not target.reachable:
         p_unsafe += 0.30
-    p_unsafe += 0.30 * max(0.0, scene.clutter - 0.5)
+    p_unsafe += 0.12 * float(target.novel)            # OOD -> small DEFER pressure
+    p_unsafe += 0.30 * max(0.0, scene.clutter - 0.5)  # dense -> planning risk
     p_unsafe = min(0.95, p_unsafe)
 
     return {

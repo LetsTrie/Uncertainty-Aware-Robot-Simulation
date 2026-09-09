@@ -87,7 +87,12 @@ python scripts/frontier.py              # autonomy/safety frontier plot
 python scripts/calibration.py           # ECE + reliability diagram
 python scripts/distribution_shift.py    # in-dist vs shifted
 python scripts/ablation.py              # which signals matter
+python scripts/run_seeds.py             # error bars (mean ± std over seeds)
+python scripts/cost_sweep.py            # the cost-of-failure "risk dial"
+python scripts/learned_signals.py       # swap a simulated signal for a learned one
 ```
+
+Tests: `pytest` (unit tests + the `types.py` doctests).
 
 Every script accepts `--config configs/experiment.yaml` to override defaults.
 
