@@ -1,6 +1,8 @@
 # Uncertainty-Aware Selective Autonomy for Robot Manipulation
 ### Learning when to **Act**, **Ask**, or **Defer**
 
+![ManiSkill tabletop scenes the policy judges — a Panda arm, colored cubes for referential ambiguity, and a fragile object as the hazard](docs/scenes.gif)
+
 A CUDA-free, Mac-friendly research pipeline that studies the *decision layer*:
 given uncertainty about a tabletop manipulation task, should the robot execute
 (**ACT**), ask a clarifying question (**ASK**), or hand off to a human (**DEFER**)?
