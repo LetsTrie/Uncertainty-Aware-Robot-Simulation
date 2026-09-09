@@ -1,0 +1,26 @@
+# Optional experiment overrides. Run any script with:
+#   python scripts/<name>.py --config configs/experiment.yaml
+# Any field you omit keeps its default from uarsim/config.py.
+
+cost:
+  c_wrong: 1.0
+  c_unsafe: 3.0
+  c_ask: 0.1
+  c_defer: 0.3
+
+data:
+  seed: 0
+  n_train: 40000
+  n_val: 8000
+  n_test_id: 20000
+  n_test_shift: 20000
+
+threshold:
+  w_safety: 2.0
+  t_act: 0.30
+  t_defer: 0.70
+
+train:
+  epochs: 40
+  batch_size: 512
+  lr: 0.001

@@ -1,0 +1,11 @@
+# ManiSkill backend (GPU only) — install on a CUDA GPU box, NOT on a laptop.
+# Needs an NVIDIA GPU + Vulkan for ManiSkill's SAPIEN renderer.
+# Install the base requirements first (requirements.txt), then these.
+
+mani_skill>=3.0.0b   # ManiSkill 3 (pulls in sapien, the physics+render backend)
+gymnasium>=0.29
+tyro                 # ManiSkill CLI utilities / examples
+
+# Optional — only if you later want closed-loop grasp execution via motion
+# planning (not required for the decision experiment):
+# mplib>=0.1.1

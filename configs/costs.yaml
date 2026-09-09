@@ -1,0 +1,7 @@
+# Standalone cost model, for experiments that vary the cost of help vs. mistakes.
+# Load with --config; only the `cost:` section is read by the scripts.
+cost:
+  c_wrong: 1.0    # acted on the wrong object
+  c_unsafe: 3.0   # unsafe collision — the failure we most want to avoid
+  c_ask: 0.1      # one clarification question
+  c_defer: 0.3    # hand the whole task to a human
