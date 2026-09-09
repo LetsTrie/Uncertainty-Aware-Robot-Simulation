@@ -1,8 +1,14 @@
 # ManiSkill backend (GPU only) — install on a CUDA GPU box, NOT on a laptop.
 # Needs an NVIDIA GPU + Vulkan for ManiSkill's SAPIEN renderer.
 # Install the base requirements first (requirements.txt), then these.
+#
+# IMPORTANT: requires Python 3.9-3.12. ManiSkill's deps (sapien, mplib) have no
+# Python 3.13 wheels yet, so on a 3.13 runtime (e.g. current Google Colab) the
+# install fails with a long backtrack. Use Python 3.11 there (see
+# MANISKILL_SETUP.md). The version is pinned so pip resolves instantly instead
+# of backtracking through every beta.
 
-mani_skill>=3.0.0b   # ManiSkill 3 (pulls in sapien, the physics+render backend)
+mani_skill==3.0.1    # ManiSkill 3 (pulls in sapien + mplib, the physics+render backend)
 gymnasium>=0.29
 tyro                 # ManiSkill CLI utilities / examples
 
