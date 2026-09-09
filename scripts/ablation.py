@@ -44,8 +44,8 @@ def _train_classifier(X, y, tcfg, device):
     opt = torch.optim.Adam(model.parameters(), lr=tcfg.lr,
                            weight_decay=tcfg.weight_decay)
     loss_fn = nn.CrossEntropyLoss()
-    Xt = torch.from_numpy(X).to(device)
-    yt = torch.from_numpy(y).to(device)
+    Xt = torch.from_numpy(X.copy()).to(device)
+    yt = torch.from_numpy(y.copy()).to(device)
     n = len(Xt)
     for _ in range(tcfg.epochs):
         idx = torch.randperm(n, device=device)

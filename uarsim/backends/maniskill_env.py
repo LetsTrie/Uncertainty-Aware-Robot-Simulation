@@ -84,14 +84,19 @@ if _MANISKILL_AVAILABLE:
             self.cubes = []
             for i in range(self.num_cubes):
                 color = CUBE_COLORS[self._colors[i % len(self._colors)]]
+                # An initial_pose is given so ManiSkill doesn't warn about
+                # unset builder poses; the real per-episode pose is randomized
+                # in _initialize_episode below.
                 cube = actors.build_cube(
                     self.scene, half_size=HALF, color=color,
-                    name=f"cube_{i}", body_type="dynamic")
+                    name=f"cube_{i}", body_type="dynamic",
+                    initial_pose=sapien.Pose(p=[0.0, -0.1 + 0.1 * i, HALF]))
                 self.cubes.append(cube)
 
             self.fragile = actors.build_cube(
                 self.scene, half_size=HALF, color=FRAGILE_COLOR,
-                name="fragile", body_type="dynamic")
+                name="fragile", body_type="dynamic",
+                initial_pose=sapien.Pose(p=[0.2, 0.0, HALF]))
 
         def _initialize_episode(self, env_idx, options: dict):
             with torch.device(self.device):

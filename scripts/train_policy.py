@@ -24,8 +24,9 @@ from uarsim.nn import MLP, get_device, save_model
 
 
 def _loaders(X, y, batch, device, shuffle=True):
-    Xt = torch.from_numpy(X).to(device)
-    yt = torch.from_numpy(y).to(device)
+    # .copy() -> writable arrays, silences the non-writable-tensor warning.
+    Xt = torch.from_numpy(X.copy()).to(device)
+    yt = torch.from_numpy(y.copy()).to(device)
     n = len(Xt)
     idx = np.arange(n)
     while True:

@@ -55,5 +55,7 @@ def load_model(path, device=None) -> tuple[nn.Module, dict]:
 def forward_numpy(model: nn.Module, X: np.ndarray, device=None) -> np.ndarray:
     """Run the model on a numpy feature matrix; return numpy logits/outputs."""
     device = device or next(model.parameters()).device
-    t = torch.from_numpy(np.asarray(X, dtype=np.float32)).to(device)
+    # .copy() ensures a writable array (pandas .to_numpy() can be read-only),
+    # which avoids a torch.from_numpy non-writable-tensor warning.
+    t = torch.from_numpy(np.asarray(X, dtype=np.float32).copy()).to(device)
     return model(t).cpu().numpy()
