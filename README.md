@@ -17,6 +17,10 @@ robot scenes without changing the decision layer.
 (problem, method, results, discussion), built from the result tables in
 [`docs/`](docs/). Open it in a browser, or view the shared version online.
 
+**▶ Run the ManiSkill backend on a free GPU:**
+[`notebooks/run_maniskill_colab.ipynb`](notebooks/run_maniskill_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LetsTrie/Uncertainty-Aware-Robot-Simulation/blob/main/notebooks/run_maniskill_colab.ipynb)
+
 ---
 
 ## Research questions
